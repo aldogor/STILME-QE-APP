@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(.gradlew clean:*)",
+      "Bash(cmd /c \"gradlew.bat clean --no-daemon\")",
+      "Bash(cmd /c:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(.gradlew.bat clean assembleDebug:*)",
+      "Bash(./gradlew.bat clean assembleDebug:*)",
+      "Bash(./gradlew.bat assembleDebug:*)",
+      "Bash(./gradlew.bat clean)",
+      "Bash(./gradlew.bat compileDebugKotlin:*)",
+      "Bash(./gradlew.bat --stop)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(find \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\layout\" -name \"*.xml\" -type f -exec grep -h '@string/' {})",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\java\\com\\aldogor\\stilme_qe_app\\questionnaire\\QuestionnaireEngine.kt\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\ic_scale_0.xml\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\ic_scale_1.xml\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\ic_scale_2.xml\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\ic_scale_3.xml\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\ic_scale_4.xml\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\bg_scale_icon_selected.xml\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\bg_app_icon_circle.xml\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\bg_status_warning.xml\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\drawable\\bg_status_dot_warning.xml\")",
+      "Bash(./gradlew.bat clean:*)",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\java\\com\\aldogor\\stilme_qe_app\\stl_guide\\STLGuideFragment.kt\")",
+      "Bash(del \"C:\\Users\\Aldo\\Documents\\Android Studio\\STILME-QE-APP\\app\\src\\main\\res\\layout\\fragment_stl_guide.xml\")",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(./gradlew assembleDebug:*)",
+      "Bash(dir:*)",
+      "Bash(.gradlew.bat assembleDebug:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
