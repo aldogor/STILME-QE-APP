@@ -293,7 +293,7 @@ Primary IDE is **Android Studio**; the project also builds from the command line
 - **Android Studio**: primary IDE. Bundles its own JBR (currently **JDK 21**), used for both the IDE and its Gradle builds by default — no extra JDK setup needed to build inside Studio.
 - **JDK for terminal Gradle**: `JAVA_HOME` = Studio's JBR (`C:\Program Files\Android\Android Studio\jbr`), so `./gradlew` from a shell uses the same JVM as Studio. The project builds cleanly on JDK 21. (If Studio is ever removed, install a standalone JDK 17+ and repoint `JAVA_HOME`, or every terminal build dies with an invalid `JAVA_HOME`.)
 - **SDK**: `%LOCALAPPDATA%\Android\Sdk` (`ANDROID_HOME`), with `platform-tools`, `emulator` (and optionally `cmdline-tools\latest`) on PATH.
-- **Android CLI** (optional; Google's `android-cli.exe` at `C:\Users\Aldo\.android\bin\`, `winget install Google.AndroidCLI`) — a convenience wrapper over the SDK tools for emulator/deploy from a shell. Not on PATH as `android` in freshly-inherited tool shells; call the full path.
+- **Android CLI** (Google's `android-cli.exe` at `C:\Users\Aldo\.android\bin\`, `winget install Google.AndroidCLI`) — the preferred way to drive emulators and deploy APKs from the command line (handy for agent/CLI-driven work, independent of launching the IDE); wraps avdmanager/emulator/adb. Building is still Gradle. Not on PATH as `android` in freshly-inherited tool shells; call the full path.
 
 **Building/testing is Gradle** (inside Studio, or from a shell — the Android CLI does not build):
 
