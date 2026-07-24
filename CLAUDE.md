@@ -286,15 +286,16 @@ These are injected into `BuildConfig` at build time. `local.properties` is git-i
 
 KSP is used instead of KAPT for Room annotation processing (faster, Windows-compatible).
 
-### CLI Workflow (no Android Studio)
+### Toolchain & CLI Workflow
 
-The project is developed entirely from the command line. Toolchain (all machine-level, already configured on the dev machine):
+Primary IDE is **Android Studio**; the project also builds from the command line — both drive the same Gradle build. Toolchain (machine-level, already configured on the dev machine):
 
-- **JDK**: Eclipse Temurin 17 (`JAVA_HOME` = `C:\Program Files\Eclipse Adoptium\jdk-17.x-hotspot`, user env var)
-- **SDK**: `%LOCALAPPDATA%\Android\Sdk` (`ANDROID_HOME`), with `cmdline-tools\latest`, `platform-tools`, `emulator` on PATH
-- **Android CLI** (Google's agent CLI, `android-cli.exe` at `C:\Users\Aldo\.android\bin\`, installed via `winget install Google.AndroidCLI`) — a convenience wrapper over the SDK tools. Note: not on PATH as `android` in freshly-inherited tool shells; call the full path.
+- **Android Studio**: primary IDE. Bundles its own JBR (currently **JDK 21**), used for both the IDE and its Gradle builds by default — no extra JDK setup needed to build inside Studio.
+- **JDK for terminal Gradle**: `JAVA_HOME` = Studio's JBR (`C:\Program Files\Android\Android Studio\jbr`), so `./gradlew` from a shell uses the same JVM as Studio. The project builds cleanly on JDK 21. (If Studio is ever removed, install a standalone JDK 17+ and repoint `JAVA_HOME`, or every terminal build dies with an invalid `JAVA_HOME`.)
+- **SDK**: `%LOCALAPPDATA%\Android\Sdk` (`ANDROID_HOME`), with `platform-tools`, `emulator` (and optionally `cmdline-tools\latest`) on PATH.
+- **Android CLI** (optional; Google's `android-cli.exe` at `C:\Users\Aldo\.android\bin\`, `winget install Google.AndroidCLI`) — a convenience wrapper over the SDK tools for emulator/deploy from a shell. Not on PATH as `android` in freshly-inherited tool shells; call the full path.
 
-**Building/testing is always Gradle** (the Android CLI does not build):
+**Building/testing is Gradle** (inside Studio, or from a shell — the Android CLI does not build):
 
 ```powershell
 .\gradlew assembleDebug          # debug APK -> app\build\outputs\apk\debug\MIND-TIME.apk (custom-named)
@@ -314,7 +315,11 @@ android-cli skills list                          # manage Android agent skills (
 
 Raw fallback (if the Android CLI is unavailable): `sdkmanager --list_installed`, `avdmanager list avd`, `emulator -avd stilme_test`, `adb install -r <apk>`, `adb shell am start -n com.aldogor.stilme_qe_app/.MainActivity`, `adb logcat --pid=$(adb shell pidof -s com.aldogor.stilme_qe_app)`.
 
-> **⚠️ Known machine issue — Gradle "Unable to establish loopback connection"**: on this Windows machine, AF_UNIX sockets fail inside `%TEMP%` (`C:\Users\Aldo\AppData\Local\Temp`), which breaks Java NIO pipes (JDK ≥16 puts pipe socket files there). Workaround: run Gradle with `$env:TMP = "C:\WINDOWS\TEMP"; $env:TEMP = "C:\WINDOWS\TEMP"` set first. This applies to ALL Gradle invocations in any shell, including Claude Code sessions. Diagnosed 2026-07-05; root cause is directory-specific (likely a security-filter driver), machine works normally otherwise.
+> **⚠️ Known machine issue — Gradle "Unable to establish loopback connection"**: on this Windows machine, AF_UNIX sockets fail inside `%TEMP%` (`C:\Users\Aldo\AppData\Local\Temp`), which breaks Java NIO pipes (JDK ≥16 puts pipe socket files there). Reproduces on both JDK 17 and JDK 21, and affects Gradle from **any** launcher — a terminal **and Android Studio** (Studio inherits the user `TEMP`).
+>   - **Terminal:** run Gradle with `$env:TMP = "C:\WINDOWS\TEMP"; $env:TEMP = "C:\WINDOWS\TEMP"` set first.
+>   - **Android Studio:** if IDE builds fail with this error, set user-level `TMP`/`TEMP` env vars to a known-good dir (e.g. `C:\WINDOWS\TEMP`) and restart Studio, or launch Studio from a shell that has them set.
+>
+> Diagnosed 2026-07-05; root cause is directory-specific (likely a security-filter driver on the user Temp dir), machine works normally otherwise.
 
 ### R8/ProGuard
 
